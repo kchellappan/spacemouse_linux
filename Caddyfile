@@ -1,0 +1,36 @@
+{
+	admin off
+	auto_https disable_redirects
+}
+
+https://127.51.68.120:8181 {
+	tls 127.51.68.120.pem 127.51.68.120-key.pem
+
+	# CORS for the probe JSON
+	header {
+		Access-Control-Allow-Origin "https://3dconnexion.com"
+		Access-Control-Allow-Methods "GET, OPTIONS"
+		Access-Control-Allow-Headers "*"
+	}
+
+	# Probe endpoint
+	@nlproxy path /3dconnexion/nlproxy
+	respond @nlproxy `{"port":8181}` 200
+
+	# Preflight
+	@options method OPTIONS
+	respond @options "" 204
+
+	# Match WS handshake requests
+	@ws {
+		header Connection *Upgrade*
+		header Upgrade websocket
+	}
+	# Echo the subprotocol ON THE RESPONSE (exactly once)
+	header @ws {
+		+Sec-WebSocket-Protocol "wamp"
+	}
+
+	# Proxy to your Rust WS at ws://127.0.0.1:8180/
+	reverse_proxy http://127.0.0.1:8180
+}
