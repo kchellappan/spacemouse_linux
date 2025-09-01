@@ -4,11 +4,12 @@
 }
 
 https://127.51.68.120:8181 {
-	tls 127.51.68.120.pem 127.51.68.120-key.pem
+	tls scripts/127.51.68.120.pem scripts/127.51.68.120-key.pem
 
 	# CORS for the probe JSON
 	header {
-		Access-Control-Allow-Origin "https://3dconnexion.com"
+		# Access-Control-Allow-Origin "https://3dconnexion.com"
+		Access-Control-Allow-Origin "*" # dev only
 		Access-Control-Allow-Methods "GET, OPTIONS"
 		Access-Control-Allow-Headers "*"
 	}
