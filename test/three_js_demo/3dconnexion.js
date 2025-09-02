@@ -71,7 +71,7 @@ _3Dconnexion = function (n) {
         "events.keyRelease": n.setKeyRelease,
         "settings.changed": n.setSettingsChanged,
     };
-    this.debug = !1;
+    this.debug = 1;
     window.hasOwnProperty("_3DCONNEXION_DEBUG") && (this.debug = window._3DCONNEXION_DEBUG);
     this.blur = this.blur.bind(this);
     this.focus = this.focus.bind(this);

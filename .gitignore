@@ -2,3 +2,5 @@ Cargo.lock
 target/**/*
 spacemouse/**/*
 scripts/*.pem
+**/*.zip
+3DxWare_SDK*/
